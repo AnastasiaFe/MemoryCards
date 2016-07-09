@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/action_settings">
+        <ListPreference android:key="BackgroundColor"
+            android:title="Theme"
+            android:entries="@array/ColorTitle"
+            android:entryValues="@array/colorValue"
+            android:defaultValue="#FFFEFCFF"
+
+            />
+        <ListPreference android:key="PictureSet"
+            android:title="Pictures"
+            android:entries="@array/PictureSetTitle"
+            android:entryValues="@array/PicturesSet"
+            android:defaultValue="@string/animals"
+            />
+        </PreferenceCategory>
+</PreferenceScreen>

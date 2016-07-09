@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">MemoryCards</string>
+    <string name="action_settings">Settings</string>
+    <string name="StartButtonText">Start</string>
+    <string name="RecordsButtonText">Records</string>
+    <string name="SettingButtonText">Settings</string>
+    <string name="ExitButtonText">Exit</string>
+    <string name="Title">Memory Cards</string>
+<string name="animals">animals</string>
+    <string-array name="colorValue">
+        <item>#FFFEFCFF</item>
+        <item>#FFF9AF55</item>
+        <item>#FFF97DE2</item>
+        <item>#FF8EF97D</item>
+
+    </string-array>
+
+    <string-array name="ColorTitle">
+        <item>White</item>
+        <item>Orange</item>
+        <item>Pink</item>
+        <item>Green</item>
+    </string-array>
+
+    <string-array name="PicturesSet">
+        <item>animal</item>
+        <item>l</item>
+    </string-array>
+    <string-array name="PictureSetTitle">
+        <item>Animals</item>
+        <item>Love</item>
+    </string-array>
+</resources>
