@@ -9,11 +9,9 @@
             android:defaultValue="#FFFEFCFF"
 
             />
-        <ListPreference android:key="PictureSet"
-            android:title="Pictures"
-            android:entries="@array/PictureSetTitle"
-            android:entryValues="@array/PicturesSet"
-            android:defaultValue="@string/animals"
-            />
+       <SwitchPreference
+           android:title="Sound"/>
+
         </PreferenceCategory>
+
 </PreferenceScreen>

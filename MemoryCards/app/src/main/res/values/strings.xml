@@ -5,6 +5,7 @@
     <string name="RecordsButtonText">Records</string>
     <string name="SettingButtonText">Settings</string>
     <string name="ExitButtonText">Exit</string>
+    <string name="select">Select the level</string>
     <string name="Title">Memory Cards</string>
 <string name="animals">animals</string>
     <string-array name="colorValue">
@@ -12,6 +13,7 @@
         <item>#FFF9AF55</item>
         <item>#FFF97DE2</item>
         <item>#FF8EF97D</item>
+        <item>#C8E6C9</item>
 
     </string-array>
 
@@ -20,14 +22,8 @@
         <item>Orange</item>
         <item>Pink</item>
         <item>Green</item>
+        <item>Primary</item>
     </string-array>
 
-    <string-array name="PicturesSet">
-        <item>animal</item>
-        <item>l</item>
-    </string-array>
-    <string-array name="PictureSetTitle">
-        <item>Animals</item>
-        <item>Love</item>
-    </string-array>
+
 </resources>

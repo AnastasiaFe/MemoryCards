@@ -2,6 +2,8 @@ package com.example.anastasia.memorycards;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,6 +19,8 @@ public class GridAdapter extends BaseAdapter {
 
     private Context context;
     private Integer cols, rows;
+private SoundPool sounds;
+    private int sPlus;
 
     private  enum Status {CELL_OPEN, CELL_CLOSE, CELL_DELETE};
     //cостояния картинки
@@ -34,12 +38,15 @@ public class GridAdapter extends BaseAdapter {
         rows = mrows;
         statuses =new ArrayList<>();
 this.prefix=prefix;
-        pictures = new ArrayList<String>();
+        pictures = new ArrayList<>();
         //дальше взять из настроек!!!!
         // Получаем все ресурсы приложения
         resources = this.context.getResources();
         makePictArray();
         closeAllCells();
+        sounds = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
+        sPlus = sounds.load(context, R.raw.plus, 1);
+
     }
 //устанавливаем статус закрытой всем картинкам
     private void closeAllCells() {
@@ -106,11 +113,15 @@ this.prefix=prefix;
             return;
         if (pictures.get(first).equals (pictures.get(second)))
         {
+            //maybe here
+            sounds.play(sPlus, 1.0f, 1.0f, 0, 0, 1.5f);
             statuses.set(first, Status.CELL_DELETE);
             statuses.set(second, Status.CELL_DELETE);
         }
         else
         {
+            //and here
+           // sounds.play(sMinus,1.0f, 1.0f, 0, 0, 1.5f);
             statuses.set(first, Status.CELL_CLOSE);
             statuses.set(second, Status.CELL_CLOSE);
         }
@@ -130,8 +141,9 @@ this.prefix=prefix;
     }
 
     public boolean checkGameOver() {
-        if (statuses.indexOf(Status.CELL_CLOSE) < 0)
-            return true;
+        if (statuses.indexOf(Status.CELL_CLOSE) < 0){
+            sounds.play(sPlus, 1.0f, 1.0f, 0, 0, 1.5f);
+            return true;}
         return false;
     }
 }

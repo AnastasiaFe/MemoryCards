@@ -22,7 +22,10 @@
             android:label="Select the level"/>
         <activity android:name=".Settings"
             android:label="Settings"/>
-
+        <activity android:name=".RecordsMain"
+            android:label="Select the level to display"/>
+        <activity android:name=".Table"
+            android:label="Table of records"/>
         <activity android:name=".GameActivity"
             android:label="Game"/>
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -30,6 +33,7 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <service android:enabled="true" android:name=".MusicService" />
     </application>
 
 </manifest>
