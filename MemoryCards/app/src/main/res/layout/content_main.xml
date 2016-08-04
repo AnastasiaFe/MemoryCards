@@ -30,7 +30,7 @@
         android:textIsSelectable="false"
         android:focusableInTouchMode="false"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="79dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true" />
 
@@ -41,10 +41,10 @@
         android:id="@+id/startButton"
         style="@style/buttonsStyle"
         android:background="#ce2c8d"
-        android:layout_above="@+id/recordsButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
-        android:onClick="startOnClick" />
+        android:onClick="startOnClick"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/recordsButton"
+        android:layout_alignStart="@+id/recordsButton" />
 
     <Button
         android:layout_width="wrap_content"
@@ -52,22 +52,19 @@
         android:text="@string/RecordsButtonText"
         android:id="@+id/recordsButton"
         style="@style/buttonsStyle"
-        android:layout_above="@+id/settingsButton"
-        android:layout_alignLeft="@+id/startButton"
-        android:layout_alignStart="@+id/startButton"
-        android:layout_marginBottom="60dp"
-        android:onClick="recordsOnClick" />
+        android:onClick="recordsOnClick"
+        android:layout_marginTop="63dp"
+        android:layout_below="@+id/startButton"
+        android:layout_centerHorizontal="true" />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/SettingButtonText"
-        android:id="@+id/settingsButton"
-        style="@style/buttonsStyle"
-        android:layout_marginBottom="87dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/recordsButton"
-        android:layout_alignStart="@+id/recordsButton"
-        android:onClick="settingsOnClick" />
+        android:id="@+id/ss"
+        android:background="@drawable/mus2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>

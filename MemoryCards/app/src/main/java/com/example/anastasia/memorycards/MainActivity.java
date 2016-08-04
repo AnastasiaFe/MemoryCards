@@ -2,62 +2,85 @@ package com.example.anastasia.memorycards;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
-/**
- * Created by Anastasia on 09.07.2016.
- */
 public class MainActivity extends Activity {
-    RelativeLayout main;
+    /**text:Memory Cards*/
     TextView title;
-    Button start, records,settings;
-
-
+    Button start, records;
+    /**isMusicOn button*/
+    ImageButton ss;
+    /**if isMusicOn button clicked*/
+ static   boolean isButtonClicked=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        startService(new Intent(this, MusicService.class));
-
 title=(TextView)findViewById(R.id.title);
         start=(Button)findViewById(R.id.startButton);
         records=(Button)findViewById(R.id.recordsButton);
-        settings=(Button)findViewById(R.id.settingsButton);
-start.setTypeface(Typeface.createFromAsset(getAssets(),"3.ttf"));
-        start.setTextSize(45);
-        records.setTextSize(45);
-        settings.setTextSize(45);
+        ss=(ImageButton)findViewById(R.id.ss);
+/**set the font to the buttons and application name*/
+start.setTypeface(Typeface.createFromAsset(getAssets(), "3.ttf"));
+        start.setTextSize(50);
+        records.setTextSize(50);
         records.setTypeface(Typeface.createFromAsset(getAssets(), "3.ttf"));
-        settings.setTypeface(Typeface.createFromAsset(getAssets(),"3.ttf"));
-title.setTypeface(Typeface.createFromAsset(getAssets(),"7.ttf"));
-        title.setTextSize(35);
+title.setTypeface(Typeface.createFromAsset(getAssets(), "7.ttf"));
+        title.setTextSize(45);
 
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        //Integer BackgroundColor = Color.parseColor(settings.getString("BackgroundColor", "Primary"));
-        main = (RelativeLayout) findViewById(R.id.main);
-       // main.setBackgroundColor(BackgroundColor);
+        /**if the MusicOn button clicked - the music plays, if not - no.Picture changes*/
+if(isButtonClicked)
+{
+    play();
+    ss.setImageResource(R.drawable.mus2);
+
+}
+        else {
+    ss.setImageResource(R.drawable.mus22);
+        }
 
 
-
+        ss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //change the isButtonClicked value on the opposite one
+                isButtonClicked=!isButtonClicked;
+                initPlaySound();
+            }
+        });
 
     }
 
-
-
+public void initPlaySound()
+{
+    if(isButtonClicked)
+    {
+ss.setImageResource(R.drawable.mus2);
+        play();
+    }
+    else {
+ss.setImageResource(R.drawable.mus22);
+        stop();
+    }
+}
+/**the music on*/
+public void play()
+{
+    startService(new Intent(MainActivity.this, MusicService.class));
+}
+    /**the music off*/
+    public void stop()
+    {
+        stopService(new Intent(MainActivity.this, MusicService.class));
+    }
 
     public void onBackPressed() {
         stopService(new Intent(this, MusicService.class));
@@ -92,10 +115,7 @@ title.setTypeface(Typeface.createFromAsset(getAssets(),"7.ttf"));
         startActivity(intent);
     }
 
-    public void settingsOnClick(View view) {
-        Intent intent = new Intent(MainActivity.this, Settings.class);
-        startActivity(intent);
-    }
+
 
     public void recordsOnClick(View view) {
         startActivity(new Intent(MainActivity.this,RecordsMain.class));

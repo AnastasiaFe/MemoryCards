@@ -4,14 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-/**
- * Created by Anastasia on 28.07.2016.
- */
 public class RecordsMain extends Activity {
 
     ImageButton first,second,third,fourth,fifth,sixth,seventh,eight,nine;

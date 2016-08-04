@@ -3,19 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="ButtonColor">#FFAA0CDF</color>
     <color name="white">#FFFEFCFF</color>
-    <color name="orange">#FFF9AF55</color>
     <color name="pink">#FFF97DE2</color>
-    <color name="green">#FF8EF97D</color>
-<color name="darkPrimary">#388E3C</color>
-    <color name="primary">#4CAF50</color>
-    <color name="lightPrimary">#C8E6C9</color>
-    <color name="textIcons">#FFFFFFFF</color>
-    <color name="accent">#448AFF</color>
-    <color name="primaryText">#212121</color>
     <color name="secondaryText">#727272</color>
     <color name="divider">#B6B6B6</color>
     <color name="buttons">#ce2c8d</color>
     <color name="background">#ffc8ef</color>
+    <color name="gray">#615d5d</color>
 </resources>

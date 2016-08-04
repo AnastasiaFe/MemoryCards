@@ -1,16 +1,10 @@
 package com.example.anastasia.memorycards;
 
 import android.app.ListActivity;
-
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
-
-
-/**
- * Created by Anastasia on 22.07.2016.
- */
 public class Table extends ListActivity {
   public static String level;
     String fileName;
@@ -49,9 +43,6 @@ public class Table extends ListActivity {
                     fileName = "rec9.txt";
                     break;
             }
-
-
-
 
         RecordsAdapter ra = new RecordsAdapter (this,fileName);
         ArrayList<String> arr = ra.getRecords();

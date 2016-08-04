@@ -4,37 +4,38 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Chronometer;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.TextView;
-
-import java.sql.Time;
 import java.util.ArrayList;
 
-/**
- * Created by Anastasia on 29.06.2016.
- */
 public class GameActivity extends Activity {
 
-
+/**the current level*/
   static   String level;
+
+    /**the name of file needed to be opened*/
     String fileName;
+
+    /**is the table of records opened*/
   static   boolean isRecordsOpen;
+
+    /**count of passed levels*/
    static int count=0;
+
     private GridView gridView;
     private GridAdapter gridAdapter;
+    /** Textview that shows the count of made steps*/
     private TextView steps;
+
+    /** the time*/
     private Chronometer timer;
 
+    /**count of steps*/
     private Integer StepCount;
-    /** Called when the activity is first created. */
     public GameActivity()
     {
 
@@ -44,26 +45,20 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game);
 isRecordsOpen=false;
-SharedPreferences settings= PreferenceManager.getDefaultSharedPreferences(this);
-  //   String pictureSet=settings.getString("PictureSet", "animal");
-        Integer BackgroundColor = Color.parseColor(settings.getString("BackgroundColor", "white"));
         timer = (Chronometer) findViewById(R.id.time);
         steps = (TextView)findViewById(R.id.steps);
-
         gridView = (GridView)findViewById(R.id.field);
-        View root = gridView.getRootView();
-        root.setBackgroundColor(BackgroundColor);
-
         gridView.setEnabled(true);
-
+//set the count of steps
         StepCount = 0;
         steps.setText(StepCount.toString());
-
+//trigger the timer
         timer.start();
+        //get the current level
 level=getIntent().getExtras().getString("level");
 
 
-
+//in dependency with current level open the window with particular field size and set of pictures
         switch (level)
         {
             case "1":gridView.setNumColumns(6);gridAdapter = new GridAdapter(this, 2, 6,"flower");break;
@@ -77,6 +72,7 @@ level=getIntent().getExtras().getString("level");
            case "9":gridAdapter=new GridAdapter(this,8,8,"monster");gridView.setNumColumns(8);break;
 
         }
+        //in dependency with current level, set the value of file name
         switch (level)
         {
             case "1":fileName="rec1.txt";break;
@@ -90,22 +86,14 @@ level=getIntent().getExtras().getString("level");
             case "9":fileName="rec9.txt";break;
         }
 
-
-
-
-
-
-           // gridAdapter = new GridAdapter(this, 4, 6);
-
-        //связываем адаптер с гридом
+        //link the adapter with grid
         gridView.setAdapter(gridAdapter);
-
-        //устанавливаем обработчик клика по гриду
+        //onClick on gridview processing
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-
+//check the opened cells
                 gridAdapter.checkOpenCells();
 
                 if (gridAdapter.openCell(position)) {
@@ -128,8 +116,6 @@ level=getIntent().getExtras().getString("level");
 
 
                     timer.stop();
-                    //!!
-
                     ShowGameOver();
                 }
 
@@ -138,20 +124,24 @@ level=getIntent().getExtras().getString("level");
     }
     private void ShowGameOver () {
 
-        // Диалоговое окно
+        // Dialog window
         AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
 
-        // Заголовок и текст
+        // Header and text
         alertbox.setTitle("Congratulations!");
         String time = timer.getText().toString();
+
+
         RecordsAdapter ra = new RecordsAdapter(this,fileName);
-        // Добавляем новые значения
-        String value = StepCount.toString() + " "+ time.toString();
+        // Add new value
+        String value = StepCount.toString() + " "+ time;
         ra.addRecord(value);
-        // Записываем рекорды в файл
+        // Write records to file
         ra.WriteRecords();
+        //the text when the result of user is one of the best
         String victoryTextToast = "Your result is one of the best!\nSteps: " + StepCount.toString() + "\nTime: " + time + "\nOpen the records?";
         ArrayList<String> records = ra.getRecords();
+        //in dependency with new user's result, create 2 different alertboxes
         if (records.contains(value)) {
             AlertDialog.Builder alertboxShowRecords = new AlertDialog.Builder(this);
             alertboxShowRecords.setTitle("Congratulations!");
@@ -177,15 +167,14 @@ level=getIntent().getExtras().getString("level");
             String TextToast = "Game over \nSteps: " + StepCount.toString() + "\nTime: " + time;
 
             alertbox.setMessage(TextToast);
-
-            // Добавляем кнопку
+            // add the neutral ok button to the alertbox
             alertbox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface arg0, int arg1) {
-                    // закрываем текущую Activity
+                    // close the current Activity
                     finish();
                 }
             });
-            // показываем окно
+            // show the alertbox
             alertbox.show();
 
         }

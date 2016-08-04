@@ -11,25 +11,24 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-/**
- * Created by Anastasia on 29.06.2016.
- */
 public class GridAdapter extends BaseAdapter {
 
     private Context context;
+    /**number of cols and rows in the gridview*/
     private Integer cols, rows;
-private SoundPool sounds;
-    private int sPlus;
 
-    private  enum Status {CELL_OPEN, CELL_CLOSE, CELL_DELETE};
-    //cостояния картинки
+private SoundPool sounds;
+    /**sound for true step*/
+    private int sPlus;
+/**enum that contains conditions of picture*/
+    private  enum Status {CELL_OPEN, CELL_CLOSE, CELL_DELETE}
+    /**conditions of picture*/
     private ArrayList<Status> statuses;
-    //картинки
+   /**names of pictures*/
     private ArrayList<String> pictures;
-    //префикс картинки
+   /**prefix of the picture*/
     private String prefix;
-    //ресурсы приложения
+    /**resources of application*/
     private Resources resources;
 
     public GridAdapter(Context context, int mcols, int mrows,String prefix) {
@@ -39,8 +38,7 @@ private SoundPool sounds;
         statuses =new ArrayList<>();
 this.prefix=prefix;
         pictures = new ArrayList<>();
-        //дальше взять из настроек!!!!
-        // Получаем все ресурсы приложения
+        // get all resources of application
         resources = this.context.getResources();
         makePictArray();
         closeAllCells();
@@ -48,13 +46,13 @@ this.prefix=prefix;
         sPlus = sounds.load(context, R.raw.plus, 1);
 
     }
-//устанавливаем статус закрытой всем картинкам
+/**set the closed status to all pictures*/
     private void closeAllCells() {
         statuses.clear();
         for (int i = 0; i < cols * rows; i++)
             statuses.add(Status.CELL_CLOSE);
     }
-
+/**make the array of pictures*/
     private void makePictArray () {
         pictures.clear();
         for (int i = 0; i < ((cols * rows) / 2); i++)
@@ -62,9 +60,11 @@ this.prefix=prefix;
             pictures.add(prefix + Integer.toString(i));
             pictures.add(prefix + Integer.toString(i));
         }
-        // перемешиваем
+        // mix the pictures
         Collections.shuffle(pictures);
     }
+    /**get the count of pictures
+     * @return count of pictures*/
     @Override
     public int getCount() {
         return cols * rows;
@@ -79,7 +79,8 @@ this.prefix=prefix;
     public long getItemId(int position) {
         return 0;
     }
-
+/**get the view of the picture
+ * @return the view of the picture*/
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -92,8 +93,7 @@ this.prefix=prefix;
 
         switch (statuses.get(position)) {
             case CELL_OPEN:
-                // Получаем идентификатор ресурса для картинки,
-                // которая находится в векторе  на позиции position
+              //get the id of the picture which is on the position
                 Integer drawableId = resources.getIdentifier(pictures.get(position),
                         "drawable", context.getPackageName());
                 view.setImageResource(drawableId);
@@ -106,6 +106,7 @@ this.prefix=prefix;
         }
         return view;
     }
+    /**check 2 opened pictures on equality*/
     public void checkOpenCells() {
         int first = statuses.indexOf(Status.CELL_OPEN);
         int second = statuses.lastIndexOf(Status.CELL_OPEN);
@@ -113,21 +114,20 @@ this.prefix=prefix;
             return;
         if (pictures.get(first).equals (pictures.get(second)))
         {
-            //maybe here
-            sounds.play(sPlus, 1.0f, 1.0f, 0, 0, 1.5f);
+            if(MainActivity.isButtonClicked){
+                sounds.play(sPlus, 1.0f, 1.0f, 0, 0, 1.5f);}
+
             statuses.set(first, Status.CELL_DELETE);
             statuses.set(second, Status.CELL_DELETE);
         }
         else
         {
-            //and here
-           // sounds.play(sMinus,1.0f, 1.0f, 0, 0, 1.5f);
             statuses.set(first, Status.CELL_CLOSE);
             statuses.set(second, Status.CELL_CLOSE);
         }
-        return;
-    }
 
+    }
+/**is the picture opened*/
     public boolean openCell(int position) {
         if (statuses.get(position) == Status.CELL_DELETE
                 || statuses.get(position) == Status.CELL_OPEN)
@@ -139,10 +139,11 @@ this.prefix=prefix;
         notifyDataSetChanged();
         return true;
     }
-
+/**is the game over*/
     public boolean checkGameOver() {
         if (statuses.indexOf(Status.CELL_CLOSE) < 0){
-            sounds.play(sPlus, 1.0f, 1.0f, 0, 0, 1.5f);
+            if(MainActivity.isButtonClicked){
+            sounds.play(sPlus, 1.0f, 1.0f, 0, 0, 1.5f);}
             return true;}
         return false;
     }
